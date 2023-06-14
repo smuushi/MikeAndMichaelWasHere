@@ -69,7 +69,9 @@ for(let i = 0; i < eventFiles.length; i++) {
     const event = require(filePath);
 
     if (event.once) {
+        debugger
         console.log(event.once)
+        // client vs event... gotta know the difference.. 
         client.once(event.name, (...args) => event.execute(...args));
     } else {
         client.on(event.name, (...args) => event.execute(...args));
