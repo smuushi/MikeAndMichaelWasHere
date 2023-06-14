@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const token = process.env.TOKEN;
 
+
 const fs = require('node:fs');
 const path = require('node:path');
 
@@ -21,16 +22,21 @@ for (const file of commandFiles) {
     const command = require(filePath);
 
     if ('data' in command && 'execute' in command) {
+        console.log(command)
         client.commands.set(command.data.name, command)
     } else {
 		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
 	}
+    console.log(client.commands)
 }
 
 client.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
+    const command = client.commands.get(interaction.commandName)
+
     if (!command) {
+        
         console.error(`No command matching ${interaction.commandName} was found.. :(`)
     }
 
