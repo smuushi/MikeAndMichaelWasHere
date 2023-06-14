@@ -5,6 +5,7 @@ module.exports = {
         .setName('server')
         .setDescription('Provides info about the user'), 
     async execute(inter) {
+        debugger
         await inter.reply(`This server is ${inter.guild.name} and has ${inter.guild.memberCount} members.`)
     }
 }

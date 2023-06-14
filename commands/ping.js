@@ -5,6 +5,7 @@ module.exports = {
         .setName('ping')
         .setDescription('replies with pong..'),
     async execute(interaction){
+        debugger
         await interaction.reply('Pong...')
     }
 }

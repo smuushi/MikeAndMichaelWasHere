@@ -27,7 +27,7 @@ for (const file of commandFiles) {
     } else {
 		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
 	}
-    console.log(client.commands)
+    // console.log(client.commands)
 }
 
 // client.on(Events.InteractionCreate, async interaction => {
@@ -70,7 +70,7 @@ for(let i = 0; i < eventFiles.length; i++) {
 
     if (event.once) {
         debugger
-        console.log(event.once)
+        // console.log(event.once)
         // client vs event... gotta know the difference.. 
         client.once(event.name, (...args) => event.execute(...args));
     } else {
