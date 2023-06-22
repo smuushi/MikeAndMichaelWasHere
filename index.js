@@ -1,4 +1,4 @@
-const {Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 
 const dotenv = require('dotenv');
 dotenv.config();
@@ -9,8 +9,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 
-
-const client = new Client({ intents: [GatewayIntentBits.Guilds]})
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
 
@@ -18,16 +17,17 @@ const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-    const filePath = path.join(commandsPath, file);
-    const command = require(filePath);
+	const filePath = path.join(commandsPath, file);
+	const command = require(filePath);
 
-    if ('data' in command && 'execute' in command) {
-        console.log(command)
-        client.commands.set(command.data.name, command)
-    } else {
+	if ('data' in command && 'execute' in command) {
+		console.log(command)
+		client.commands.set(command.data.name, command)
+	}
+	else {
 		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
 	}
-    // console.log(client.commands)
+	// console.log(client.commands)
 }
 
 // client.on(Events.InteractionCreate, async interaction => {
@@ -63,20 +63,21 @@ for (const file of commandFiles) {
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
-for(let i = 0; i < eventFiles.length; i++) {
-    let file = eventFiles[i]
-    const filePath = path.join(eventsPath, file);
-    const event = require(filePath);
+for (let i = 0; i < eventFiles.length; i++) {
+	const file = eventFiles[i];
+	const filePath = path.join(eventsPath, file);
+	const event = require(filePath);
 
-    if (event.once) {
-        debugger
-        // console.log(event.once)
-        // client vs event... gotta know the difference.. 
-        client.once(event.name, (...args) => event.execute(...args));
-    } else {
-        client.on(event.name, (...args) => event.execute(...args));
+	if (event.once) {
+		debugger
+		// console.log(event.once)
+		// client vs event... gotta know the difference..
+		client.once(event.name, (...args) => event.execute(...args));
+	}
+	else {
+		client.on(event.name, (...args) => event.execute(...args));
 
-    }
+	}
 }
 
 client.login(token)
