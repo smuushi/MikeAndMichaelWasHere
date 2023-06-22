@@ -2,6 +2,9 @@
   "dependencies": {
     "discord.js": "^14.11.0",
     "dotenv": "^16.1.4"
-  }, 
-  "main":"index.js"
+  },
+  "main": "index.js",
+  "devDependencies": {
+    "eslint": "^8.43.0"
+  }
 }
